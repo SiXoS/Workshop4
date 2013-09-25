@@ -1,33 +1,36 @@
 package edu.chl.hajo.shop.core;
 
-import edu.chl.hajo.shop.utils.AbstractEntityContainer;
+import edu.chl.hajo.shop.utils.AbstractDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  * All orders
  *
  * @author hajo
  */
-public final class OrderBook extends AbstractEntityContainer<PurchaseOrder, Long>
+public final class OrderBook extends AbstractDAO<PurchaseOrder, Long>
         implements IOrderBook {
 
-    // Factory method
-    public static IOrderBook newInstance() {
-        return new OrderBook();
-    }
 
-    private OrderBook() {
+    public OrderBook(String puName) {
+        super(PurchaseOrder.class,puName);
     }
 
     @Override
     public List<PurchaseOrder> getByCustomer(Customer c) {
-        List<PurchaseOrder> found = new ArrayList<>();
-        for (PurchaseOrder po : getRange(0, getCount())) {
-            if (po.getCustomer().equals(c)) {
-                found.add(po);
-            }
-        }
-        return found;
+        EntityManager em = getEmf().createEntityManager();
+        return em.createQuery("SELECT p FROM PurchaseOrder p WHERE p.customer.id = "+c.getId(), PurchaseOrder.class).getResultList();
+    }
+    
+    @Override
+    public void removeOrderItem( OrderItem oi ){
+        EntityManager em = getEmf().createEntityManager();
+        em.getTransaction().begin();
+        OrderItem oiRef = em.getReference(OrderItem.class, oi.getId());
+        em.remove(oiRef);
+        em.getTransaction().commit();
+        em.close();
     }
 }

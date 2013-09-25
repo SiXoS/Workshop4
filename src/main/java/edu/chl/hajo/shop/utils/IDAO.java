@@ -12,18 +12,15 @@ import java.util.List;
  * 
  * @author hajo
  */
-public interface IEntityContainer<T extends IEntity<K>, K> {
+public interface IDAO<T, K> {
 
     public void add(T t);
 
     public void remove(K id);
 
-    public void update(T t);
+    public T update(T t);
 
     public T find(K id);
-
-    // Later done by database
-    public void sort(Comparator<T> comparator);
 
     public List<T> getRange(int first, int nItems);
 

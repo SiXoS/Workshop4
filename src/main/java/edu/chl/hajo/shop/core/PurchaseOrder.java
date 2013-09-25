@@ -3,12 +3,13 @@ package edu.chl.hajo.shop.core;
 import edu.chl.hajo.shop.utils.AbstractEntity;
 import java.util.Date;
 import java.util.List;
-
+import javax.persistence.*;
 /**
  * A purchase order
  *
  * @author hajo
  */
+@Entity
 public class PurchaseOrder extends AbstractEntity {
     // State of order
     public enum State {
@@ -19,10 +20,17 @@ public class PurchaseOrder extends AbstractEntity {
         UNINVOIDED,
         SHIPPED,
     }
-    private final Date date = new Date();
-    private final List<OrderItem> items;
-    private final Customer customer;
+    @Temporal(TemporalType.DATE)
+    private Date date = new Date();
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<OrderItem> items;
+    @OneToOne(cascade = {CascadeType.REFRESH})
+    private Customer customer;
+    @Enumerated(EnumType.STRING)
     private State state = State.ACCEPTED;
+
+    public PurchaseOrder() {
+    }
 
     public PurchaseOrder(Customer customer, List<OrderItem> items) {
         this.customer = customer;

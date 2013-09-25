@@ -3,15 +3,14 @@
  * and open the template in the editor.
  */
 package edu.chl.hajo.shop.core;
-
-import edu.chl.hajo.shop.utils.IEntity;
+import edu.chl.hajo.shop.utils.AbstractEntity;
 import java.util.Comparator;
 
 /**
  * Sorting on long id's (later done by database)
  * @author hajo
  */
-public class LongIdComparator<T extends IEntity<Long>> implements Comparator<T> {
+public class LongIdComparator<T extends AbstractEntity> implements Comparator<T> {
 
     @Override
     public int compare(T o1, T o2) {

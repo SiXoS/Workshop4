@@ -1,16 +1,22 @@
 package edu.chl.hajo.shop.core;
 
 import edu.chl.hajo.shop.utils.AbstractEntity;
+import javax.persistence.*;
 
 /**
  * A single row in an Order
  *
  * @author hajo
  */
+@Entity
 public class OrderItem extends AbstractEntity {
 
-    private final Product product;
-    private final int quantity;
+    @OneToOne(cascade = {CascadeType.REFRESH})
+    private Product product;
+    private int quantity;
+
+    public OrderItem() {
+    }
 
     OrderItem(Product product, int quantity) {
         this.quantity = quantity;

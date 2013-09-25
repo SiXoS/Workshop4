@@ -10,14 +10,17 @@ import java.util.logging.Logger;
  *
  * @author hajo
  */
-public class Shop implements IShop {
+public class JPAShop implements IShop {
 
-    private final IProductCatalogue productCatalogue = ProductCatalogue.newInstance();
-    private final ICustomerRegistry customerRegistry = CustomerRegistry.newInstance();
-    private final IOrderBook orderBook = OrderBook.newInstance();
+    private final IProductCatalogue productCatalogue;
+    private final ICustomerRegistry customerRegistry;
+    private final IOrderBook orderBook;
 
-    public Shop() {
+    public JPAShop(String puName) {
         Logger.getAnonymousLogger().log(Level.INFO, "Shop alive {0}", this.hashCode());
+        orderBook = new OrderBook(puName);
+        customerRegistry = new CustomerRegistry(puName);
+        productCatalogue = new ProductCatalogue(puName);
     }
 
     @Override

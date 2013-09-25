@@ -1,15 +1,20 @@
 package edu.chl.hajo.shop.core;
 
 import edu.chl.hajo.shop.utils.AbstractEntity;
+import javax.persistence.*;
 
 /**
  * A Product
  * @author hajo
  */
+@Entity
 public class Product extends AbstractEntity {
 
     private String name;
     private double price;
+
+    public Product() {
+    }
 
     public Product(String name, double price) {
         this.name = name;

@@ -1,33 +1,30 @@
 package edu.chl.hajo.shop.core;
 
-import edu.chl.hajo.shop.utils.AbstractEntityContainer;
+import edu.chl.hajo.shop.utils.AbstractDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 
 /**
  * All products
  *
  * @author hajo
  */
-public final class ProductCatalogue extends AbstractEntityContainer<Product, Long>
+public class ProductCatalogue extends AbstractDAO<Product, Long>
         implements IProductCatalogue {
 
-    private ProductCatalogue() {
-    }
-
-    // Factory method
-    public static IProductCatalogue newInstance() {
-        return new ProductCatalogue();
+    public ProductCatalogue(String puName) {
+        super(Product.class, puName);
     }
 
     @Override
     public List<Product> getByName(String name) {
-        List<Product> found = new ArrayList<>();
-        for (Product p : getRange(0, getCount())) {
-            if (p.getName().equals(name)) {
-                found.add(p);
-            }
-        }
-        return found;
+        EntityManager em = getEmf().createEntityManager();
+        return em.createQuery("SELECT p FROM Product p WHERE p.name = '"+name+"'", Product.class).getResultList();
+    }
+    
+    @Override
+    public Product getById(Long id){
+        return this.find(id);
     }
 }

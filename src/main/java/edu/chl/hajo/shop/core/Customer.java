@@ -1,18 +1,25 @@
 package edu.chl.hajo.shop.core;
 
 import edu.chl.hajo.shop.utils.AbstractEntity;
+import javax.persistence.*;
 
 /**
  * A Customer
  * @author hajo
  */
+@Entity
 public class Customer extends AbstractEntity {
 
+    @Transient
     private transient Cart cart = new Cart();
-    private final Address address;
-    private final String fname;
-    private final String lname;
-    private final String email;
+    @Embedded
+    private Address address;
+    private String fname;
+    private String lname;
+    private String email;
+
+    public Customer() {
+    }
 
     public Customer(Address address, String fname,
             String lname, String email) {

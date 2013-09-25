@@ -5,22 +5,19 @@ package edu.chl.hajo.shop.core;
  *
  * @author hajo
  */
-public class ShopFactory {
+public class JPAShopFactory {
 
-    private ShopFactory() {
+    private JPAShopFactory() {
     }
 
     // If initTestData there will be some data to use
-    public static IShop getShop(boolean initTestData) {
-        Shop s = new Shop();
-        if (initTestData) {
-            initTestData(s);
-        }
+    public static IShop getShop(String persistanceUnitName) {
+        JPAShop s = new JPAShop(persistanceUnitName);
         return s;
     }
 
     // If we have no database we can use this
-    private static void initTestData(Shop shop) {
+    /*private static void initTestData(JPAShop shop) {
 
         // Add new data
         shop.getProductCatalogue().add(new Product("banana", 11.11));
@@ -44,5 +41,5 @@ public class ShopFactory {
 
         shop.getOrderBook().add(new PurchaseOrder(c, c.getCart().getAsOrderItems()));
 
-    }
+    }*/
 }

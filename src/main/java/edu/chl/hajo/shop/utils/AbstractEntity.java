@@ -3,14 +3,19 @@ package edu.chl.hajo.shop.utils;
 
 import java.util.Objects;
 import java.util.Random;
+import javax.persistence.*;
 
 /**
  * Base class for all entities (later to be stored in database), 
  * Product, Order, etc
  * @author hajo
  */
-public abstract class AbstractEntity implements IEntity<Long>{
+@Entity
+public abstract class AbstractEntity{
 
+    @Id
+    @GeneratedValue
+    @Column(nullable=false)
     private final Long id; 
    
     protected AbstractEntity(){
@@ -22,7 +27,7 @@ public abstract class AbstractEntity implements IEntity<Long>{
         this.id = id;
     }
     
-    @Override
+    
     public Long getId(){
         return id;
     }
