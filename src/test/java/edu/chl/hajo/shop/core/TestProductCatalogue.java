@@ -32,7 +32,7 @@ public class TestProductCatalogue {
         shop = JPAShopFactory.getShop(TEST_PU);
     }
     
-    //@Test
+    @Test
     public void testGetRange() {
         IProductCatalogue pc = shop.getProductCatalogue();
         
@@ -77,7 +77,7 @@ public class TestProductCatalogue {
         assertFalse(p2.getName().equals(p1.getName()));
     }
 
-    //@Test
+    @Test
     public void testGetByName() {
         IProductCatalogue pc = shop.getProductCatalogue();
         Product p = new Product("banana", 11.11);

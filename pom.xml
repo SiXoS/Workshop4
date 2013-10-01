@@ -35,7 +35,7 @@
             <artifactId>javax.persistence</artifactId>
             <version>2.0.5</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>unknown.binary</groupId>
             <artifactId>org.eclipse.persistence.jpa</artifactId>
             <version>SNAPSHOT</version>
@@ -74,7 +74,7 @@
             <groupId>unknown.binary</groupId>
             <artifactId>javax.persistence</artifactId>
             <version>SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <name>jpa_shop</name>

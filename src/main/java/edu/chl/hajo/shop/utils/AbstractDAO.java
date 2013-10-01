@@ -61,8 +61,11 @@ public abstract class AbstractDAO<T , K>
 
     @Override
     public List<T> getRange(int first, int nItems) {
-        return null;
-        
+        EntityManager em = emf.createEntityManager();
+        return em.createQuery("SELECT c FROM "+clazz.getSimpleName()+" c", clazz)
+                .setFirstResult(first)
+                .setMaxResults(nItems)
+                .getResultList();
     }
 
     @Override

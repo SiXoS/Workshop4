@@ -1,5 +1,8 @@
 package edu.chl.hajo.shop.core;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
 /**
  * Static factory for Shops
  *
@@ -12,6 +15,13 @@ public class JPAShopFactory {
 
     // If initTestData there will be some data to use
     public static IShop getShop(String persistanceUnitName) {
+        if("shop_test_pu".equals(persistanceUnitName)){
+            EntityManager em = Persistence.createEntityManagerFactory(persistanceUnitName).createEntityManager();
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM AbstractEntity e").executeUpdate();
+            em.getTransaction().commit();
+            em.close();
+        }
         JPAShop s = new JPAShop(persistanceUnitName);
         return s;
     }
